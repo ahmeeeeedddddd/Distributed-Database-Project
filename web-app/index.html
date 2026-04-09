@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WarehouseOS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="app">
+
+  <!-- ── Sidebar ── -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-icon">
+        <svg viewBox="0 0 24 24" fill="white" width="20" height="20">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+        </svg>
+      </div>
+      <div>
+        <span class="brand-name">WarehouseOS</span>
+        <span class="brand-sub">Stock Management</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="nav-link active" data-page="dashboard">
+        <i class="ri-dashboard-3-line nav-icon"></i>
+        <span>Dashboard</span>
+      </a>
+      <a class="nav-link" data-page="inventory">
+        <i class="ri-archive-line nav-icon"></i>
+        <span>Inventory</span>
+      </a>
+      <a class="nav-link" data-page="categories">
+        <i class="ri-price-tag-3-line nav-icon"></i>
+        <span>Categories</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-pill">
+        <div class="user-av">A</div>
+        <div class="user-meta">
+          <span class="user-name">Admin</span>
+          <span class="user-role">Warehouse Manager</span>
+        </div>
+        <div class="online-dot"></div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ── Main ── -->
+  <main class="main">
+
+    <header class="topbar">
+      <div class="topbar-left">
+        <h1 class="topbar-title" id="topbar-title">Dashboard</h1>
+        <div class="breadcrumb">
+          <span>WarehouseOS</span>
+          <i class="ri-arrow-right-s-line"></i>
+          <span id="bc-page">Dashboard</span>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <div class="item-count" id="item-count">
+          <i class="ri-cube-line"></i>
+          <span id="count-num">0</span>&nbsp;items
+        </div>
+        <button class="btn btn-primary" id="add-btn" style="display:none" onclick="App.openAddModal()">
+          <i class="ri-add-line"></i> Add Item
+        </button>
+      </div>
+    </header>
+
+    <div class="content" id="content">
+
+      <!-- Dashboard -->
+      <section class="page" id="page-dashboard">
+        <div class="stats-grid">
+          <div class="stat-card c-indigo">
+            <div class="stat-ico"><i class="ri-archive-stack-line"></i></div>
+            <div class="stat-data">
+              <div class="stat-label">Total SKUs</div>
+              <div class="stat-val" id="s-total">0</div>
+              <div class="stat-hint">unique products</div>
+            </div>
+          </div>
+          <div class="stat-card c-green">
+            <div class="stat-ico"><i class="ri-checkbox-circle-line"></i></div>
+            <div class="stat-data">
+              <div class="stat-label">In Stock</div>
+              <div class="stat-val" id="s-in">0</div>
+              <div class="stat-hint success">items available</div>
+            </div>
+          </div>
+          <div class="stat-card c-amber">
+            <div class="stat-ico"><i class="ri-alert-line"></i></div>
+            <div class="stat-data">
+              <div class="stat-label">Low Stock</div>
+              <div class="stat-val" id="s-low">0</div>
+              <div class="stat-hint warn">need reorder</div>
+            </div>
+          </div>
+          <div class="stat-card c-red">
+            <div class="stat-ico"><i class="ri-close-circle-line"></i></div>
+            <div class="stat-data">
+              <div class="stat-label">Out of Stock</div>
+              <div class="stat-val" id="s-out">0</div>
+              <div class="stat-hint danger">items depleted</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sec-header">
+          <h2 class="sec-title">Recent Items</h2>
+          <button class="btn btn-ghost btn-sm" onclick="App.navigate('inventory')">
+            View all <i class="ri-arrow-right-line"></i>
+          </button>
+        </div>
+        <div class="table-card" id="dash-table"></div>
+      </section>
+
+      <!-- Inventory -->
+      <section class="page hidden" id="page-inventory">
+        <div class="toolbar">
+          <div class="search-wrap">
+            <i class="ri-search-line search-ico"></i>
+            <input type="text" id="inv-search" class="search-input" placeholder="Search name, SKU, category…" />
+          </div>
+          <select id="inv-cat" class="sel-field">
+            <option value="">All Categories</option>
+          </select>
+          <select id="inv-status" class="sel-field">
+            <option value="">All Statuses</option>
+            <option value="in-stock">In Stock</option>
+            <option value="low-stock">Low Stock</option>
+            <option value="out-stock">Out of Stock</option>
+          </select>
+        </div>
+        <div class="table-card" id="inv-table"></div>
+      </section>
+
+      <!-- Categories -->
+      <section class="page hidden" id="page-categories">
+        <div class="toolbar">
+          <div class="search-wrap">
+            <i class="ri-search-line search-ico"></i>
+            <input type="text" id="cat-search" class="search-input" placeholder="Search categories…" />
+          </div>
+        </div>
+        <div class="table-card" id="cat-table"></div>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<!-- ── Add / Edit Modal ── -->
+<div class="overlay" id="item-overlay">
+  <div class="modal" id="item-modal">
+    <div class="modal-header">
+      <div>
+        <h2 class="modal-title" id="modal-title">Add Item</h2>
+        <p class="modal-sub" id="modal-sub">Fill in the stock item details.</p>
+      </div>
+      <button class="close-btn" onclick="App.closeModal()"><i class="ri-close-line"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-field">
+          <label class="form-label">Item Name <span class="req">*</span></label>
+          <input type="text" id="f-name" class="form-input" placeholder="e.g. Industrial Gloves" />
+        </div>
+        <div class="form-field">
+          <label class="form-label">SKU <span class="req">*</span></label>
+          <input type="text" id="f-sku" class="form-input" placeholder="e.g. GLV-001" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-field">
+          <label class="form-label">Category</label>
+          <input type="text" id="f-category" class="form-input" placeholder="e.g. Safety Equipment" list="cat-dl" />
+          <datalist id="cat-dl"></datalist>
+        </div>
+        <div class="form-field">
+          <label class="form-label">Location</label>
+          <input type="text" id="f-location" class="form-input" placeholder="e.g. Shelf A-3" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-field">
+          <label class="form-label">Quantity <span class="req">*</span></label>
+          <input type="number" id="f-qty" class="form-input" min="0" placeholder="0" />
+        </div>
+        <div class="form-field">
+          <label class="form-label">Low Stock Threshold</label>
+          <input type="number" id="f-threshold" class="form-input" min="0" placeholder="10" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-field">
+          <label class="form-label">Unit Price ($)</label>
+          <input type="number" id="f-price" class="form-input" min="0" step="0.01" placeholder="0.00" />
+        </div>
+        <div class="form-field">
+          <label class="form-label">Unit</label>
+          <select id="f-unit" class="form-input form-select">
+            <option>pcs</option><option>kg</option><option>lbs</option>
+            <option>box</option><option>pallet</option><option>litre</option><option>m</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-field">
+        <label class="form-label">Notes</label>
+        <textarea id="f-notes" class="form-input form-textarea" placeholder="Optional notes…"></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="App.closeModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="App.saveItem()">
+        <i class="ri-save-3-line"></i> Save Item
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Delete Confirm ── -->
+<div class="overlay" id="del-overlay">
+  <div class="modal modal-sm">
+    <div class="modal-body del-body">
+      <div class="del-icon-wrap"><i class="ri-delete-bin-line"></i></div>
+      <h3 class="del-title">Delete Item</h3>
+      <p class="del-msg">Are you sure you want to delete <strong id="del-name"></strong>? This cannot be undone.</p>
+    </div>
+    <div class="modal-footer" style="justify-content:center;gap:10px;padding-top:8px;">
+      <button class="btn btn-ghost" onclick="App.closeDeleteModal()">Cancel</button>
+      <button class="btn btn-danger" onclick="App.confirmDelete()">
+        <i class="ri-delete-bin-line"></i> Delete
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Toasts ── -->
+<div id="toast-root"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
