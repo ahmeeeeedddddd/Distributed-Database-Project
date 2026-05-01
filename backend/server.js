@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 const connectDB = require('./db');
 const itemRoutes = require('./routes/items.routes');
 
@@ -12,6 +13,9 @@ app.use(express.json());
 
 // Routes
 app.use('/api/items', itemRoutes);
+
+// Serve Static Frontend
+app.use(express.static(path.join(__dirname, '../web-app')));
 
 // Database Connection and Server Start
 if (require.main === module) {

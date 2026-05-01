@@ -21,7 +21,7 @@ This guide explains how to set up a **3-node MongoDB replica set** (`rs0`) on a 
 
 | Node | Port | Data Directory | Config File |
 |------|------|----------------|-------------|
-| Node 1 | 27017 | `C:\data\rs0-0` | `mongod-node1.conf` |
+| Node 1 | 27020 | `C:\data\rs0-0` | `mongod-node1.conf` |
 | Node 2 | 27018 | `C:\data\rs0-1` | `mongod-node2.conf` |
 | Node 3 | 27019 | `C:\data\rs0-2` | `mongod-node3.conf` |
 
@@ -45,7 +45,7 @@ mkdir C:\data\rs0-2
 
 Open **3 separate PowerShell windows** (one per node) and run the following commands.
 
-**Window 1 — Node 1 (port 27017):**
+**Window 1 — Node 1 (port 27020):**
 ```powershell
 mongod --config "C:\Users\Administrator\Documents\Distributed-db-project\infrastructure\mongod-node1.conf"
 ```
@@ -68,7 +68,7 @@ Open a **4th PowerShell window** and run:
 
 ```powershell
 cd "C:\Users\Administrator\Documents\Distributed-db-project\infrastructure"
-mongosh --port 27017 init-replica-set.js
+mongosh --port 27020 init-replica-set.js
 ```
 
 You should see output showing `rs.status()` with all 3 members — one as **PRIMARY** and two as **SECONDARY**.
@@ -78,7 +78,7 @@ You should see output showing `rs.status()` with all 3 members — one as **PRIM
 Connect to the primary:
 
 ```powershell
-mongosh --port 27017
+mongosh --port 27020
 ```
 
 Then inside the shell:
@@ -137,7 +137,7 @@ Or simply press `Ctrl+C` in each PowerShell window.
 | Issue | Solution |
 |---|---|
 | `mongod` not recognized | Add MongoDB `bin` folder to your system PATH |
-| Port already in use | Check if another `mongod` is running: `netstat -ano \| findstr 27017` |
+| Port already in use | Check if another `mongod` is running: `netstat -ano \| findstr 27020` |
 | Replica set not initializing | Ensure all 3 nodes are running before executing `init-replica-set.js` |
 | Secondary shows `STARTUP2` | Wait 10–15 seconds for initial sync to complete |
 
@@ -145,7 +145,7 @@ Or simply press `Ctrl+C` in each PowerShell window.
 
 ## Deliverable Checklist
 
-- [x] 3 MongoDB nodes configured on ports 27017, 27018, 27019
+- [x] 3 MongoDB nodes configured on ports 27020, 27018, 27019
 - [x] Replica set `rs0` initialized with `rs.initiate()`
 - [x] Network and port setup documented
 - [x] Working replica set ready for CRUD backend (Member 3) and Web App (Member 4)

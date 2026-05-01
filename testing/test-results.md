@@ -14,7 +14,7 @@ This test ensures that the Backend API can successfully interact with the MongoD
 We used a monitoring script to observe the health of the 3-node cluster.
 
 - **Replica Set Name:** `rs0`
-- **Nodes:** - `127.0.0.1:27017` (Primary)
+- **Nodes:** - `127.0.0.1:27020` (Primary)
     - `127.0.0.1:27018` (Secondary)
     - `127.0.0.1:27019` (Secondary)
 

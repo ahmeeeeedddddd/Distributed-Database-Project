@@ -1,6 +1,6 @@
 // ============================================================
 // init-replica-set.js
-// Run with:  mongosh --port 27017 init-replica-set.js
+// Run with:  mongosh --port 27020 init-replica-set.js
 // ============================================================
 
 // Initiate the replica set with 3 members

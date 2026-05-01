@@ -6,36 +6,26 @@
    Swap each method body for a fetch() call when the backend is ready.
 ════════════════════════════════════════════════════════════ */
 const Api = {
-  BASE: '/api', // backend base URL — update when integrating
+  BASE: 'http://localhost:3000/api/items', // backend base URL
 
   async getItems() {
-    // TODO: const res = await fetch(`${this.BASE}/stock`); return res.json();
-    return JSON.parse(localStorage.getItem('wh_items') ?? '[]');
+    const res = await fetch(`${this.BASE}`);
+    return res.json();
   },
 
   async createItem(data) {
-    // TODO: const res = await fetch(`${this.BASE}/stock`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) }); return res.json();
-    const items = await this.getItems();
-    const item  = { ...data, _id: 'local_' + Date.now(), createdAt: new Date().toISOString() };
-    localStorage.setItem('wh_items', JSON.stringify([...items, item]));
-    return item;
+    const res = await fetch(`${this.BASE}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+    return res.json();
   },
 
   async updateItem(id, data) {
-    // TODO: const res = await fetch(`${this.BASE}/stock/${id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) }); return res.json();
-    const items = await this.getItems();
-    const idx   = items.findIndex(i => i._id === id);
-    if (idx === -1) throw new Error('Item not found');
-    items[idx] = { ...items[idx], ...data, updatedAt: new Date().toISOString() };
-    localStorage.setItem('wh_items', JSON.stringify(items));
-    return items[idx];
+    const res = await fetch(`${this.BASE}/${id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+    return res.json();
   },
 
   async deleteItem(id) {
-    // TODO: const res = await fetch(`${this.BASE}/stock/${id}`, { method: 'DELETE' }); return res.json();
-    const items = await this.getItems();
-    localStorage.setItem('wh_items', JSON.stringify(items.filter(i => i._id !== id)));
-    return { ok: true };
+    const res = await fetch(`${this.BASE}/${id}`, { method: 'DELETE' });
+    return res.json();
   },
 };
 

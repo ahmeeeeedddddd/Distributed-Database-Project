@@ -38,5 +38,4 @@ Write-Host "`nPrimary node terminated successfully!" -ForegroundColor Green
 Write-Host "The remaining secondary nodes will now detect the failure (loss of heartbeat)."
 Write-Host "An election should occur within a few seconds.`n"
 
-Write-Host "Next step: Run the status check script against one of the secondary nodes (e.g., port 27018) to observe the election outcome:" -ForegroundColor Cyan
-Write-Host "node ../replication/check-replica-status.js (if rewritten for node) or just check Compass!" -ForegroundColor Yellow
+Write-Host "mongosh --port 27018 ../replication/check-replica-status.js (or just check Compass!)" -ForegroundColor Yellow

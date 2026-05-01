@@ -1,4 +1,4 @@
-URI="mongodb://127.0.0.1:27017,127.0.0.1:27018,127.0.0.1:27019/?replicaSet=rs0" # at2kd mn el url da 
+URI="mongodb://127.0.0.1:27020,127.0.0.1:27018,127.0.0.1:27019/?replicaSet=rs0" # Connection string for the replica set
 
 echo "------------------------------------------------------"
 echo " Monitoring MongoDB Replica Set Status (Every 5s)"
