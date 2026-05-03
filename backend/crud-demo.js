@@ -11,7 +11,17 @@ async function runDemo() {
         const createRes = await fetch(backendUrl, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name: 'Distributed DB Book', description: 'Concepts of replication', price: 29.99, quantity: 10 })
+            body: JSON.stringify({ 
+                name: 'Safety Goggles', 
+                sku: 'GLV-2026', 
+                category: 'Safety Equipment', 
+                location: 'Shelf A-12', 
+                qty: 45, 
+                threshold: 10, 
+                price: 15.50, 
+                unit: 'pcs', 
+                notes: 'Standard protection' 
+            })
         });
         if (!createRes.ok) throw new Error("Create failed: " + await createRes.text());
         const createdItem = await createRes.json();
@@ -43,7 +53,7 @@ async function runDemo() {
         const updateRes = await fetch(`${backendUrl}/${createdItemId}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ price: 25.00, quantity: 8 }) // Change price and quantity
+            body: JSON.stringify({ price: 18.00, qty: 50 }) // Change price and qty
         });
         if (!updateRes.ok) throw new Error("Update failed: " + await updateRes.text());
         const updatedItem = await updateRes.json();
